@@ -8,7 +8,7 @@ def test3():
     params = {'show_env': '8'}
     headers = {'Connection': 'keep-alive', 'Accept-Encoding': 'gzip, deflate',
                    'Accept': '*/*','User-Agent': 'python-requests/2.18.3','token':'avc0901123'}
-    r = requests.get('http://127.0.0.1:8000/wx/', params=params,headers=headers)
+    r = requests.get('http://47.110.48.0:80/wx', params=params,headers=headers)
     print('r={},content={}'.format(type(r),r.content))
     # r._content
     # r3 = r.json()
