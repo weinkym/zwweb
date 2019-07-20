@@ -7,6 +7,7 @@ import time
 import webwx.zwutil as zwutil
 import webwx.settings as settings
 from . import wxtoken
+from . import message as MSG
 
 def test(request,index):
     return HttpResponse("test method={},index={}".format(request.method,index))
@@ -40,7 +41,6 @@ def is_wx_message(request):
 
     return False
 
-
 def index(request):
     logging.warn("test===={}".format(time.strftime("%Y%m%d%H%M%S", time.localtime())))
     msg='scheme={},path={},method={},encoding={},session={},META={}'.format(request.scheme,
@@ -63,31 +63,10 @@ def index(request):
         logging.info(type(postBody))
         logging.info('postBody={}'.format(postBody))
         # return HttpResponse("post postBody={}".format(postBody))
-        return HttpResponse("post postBody={}".format(postBody))
+        msg=MSG.parseString(postBody)
+        print("msg={}".format(msg))
+        return HttpResponse("success")
     # logging.info("content={}".format(request.content))
     return HttpResponse("mzw={}===time".format(request.method))
-   # print('msg={}'.format(msg))
-    # token='wx2019mzw'
-    # if request.method == request.GET:
-    # signature = request.GET.get("signature")
-    # echostr = request.GET.get("echostr")
-    # timestamp = request.GET.get("timestamp")
-    # nonce = request.GET.get("nonce")
-    # list_t = [token, timestamp, nonce]
-    # list_t.sort()
-    # sha1 = hashlib.sha1()
-    # map(sha1.update, list_t)
-    # hashcode = sha1.hexdigest()
-    # print("token={},signature={},echostr={},timestamp={},nonce={},hashcode={}".format(token,signature,
-    # echostr,timestamp,nonce,hashcode))
-    # return HttpResponse(msg)
-    # if hashcode == signature:
-    #     print("ok==")
-    #     return HttpResponse(echostr)
-    # else:
-    #     print("!!!!==")
-    #     return HttpResponse(echostr)
-        # return HttpResponse("Hello, world. You're at the polls index.msg={}".format(msg))
 
-    
 # Create your views here.
