@@ -6,6 +6,7 @@ import logging
 import time
 import webwx.zwutil as zwutil
 import webwx.settings as settings
+from . import wxtoken
 
 def test(request,index):
     return HttpResponse("test method={},index={}".format(request.method,index))
@@ -13,9 +14,9 @@ def test(request,index):
 g_is_first=True
 if g_is_first is True:
     g_is_first = False
-    settings.TIME_ZONE='Asia/Shanghai'
-    settings.USE_TZ=False
     zwutil.init_log()
+    wxtoken.update_access_token(False)
+
 
 def is_wx_message(request):
     if request.method == 'GET':
@@ -61,6 +62,7 @@ def index(request):
         logging.info('concat={}'.format(concat))
         logging.info(type(postBody))
         logging.info('postBody={}'.format(postBody))
+        # return HttpResponse("post postBody={}".format(postBody))
         return HttpResponse("post postBody={}".format(postBody))
     # logging.info("content={}".format(request.content))
     return HttpResponse("mzw={}===time".format(request.method))
