@@ -45,5 +45,38 @@ def parseString(string):
     msg.Content=getMessageItemContent(dom,'Content')
     return msg
 
-def sendMessage(ToUserName,FromUserName,text):
-    pass
+def appendItemCDATASection(doc,item_root,key,value):
+    item=doc.createElement(key)
+    node=doc.createCDATASection(value)
+    item.appendChild(node)
+    item_root.appendChild(item)
+
+
+def appendItem(doc,item_root,key,value):
+    item=doc.createElement(key)
+    node=doc.createTextNode(value)
+    item.appendChild(node)
+    item_root.appendChild(item)
+
+def createResponseMessage(ToUserName,FromUserName,text):
+    doc=Document()
+    item_xml=doc.createElement('xml')
+
+    appendItemCDATASection(doc,item_xml,'ToUserName',ToUserName)
+    appendItemCDATASection(doc,item_xml,'FromUserName',FromUserName)
+    appendItemCDATASection(doc,item_xml,'Content',text)
+    appendItemCDATASection(doc,item_xml,'MsgType',MESSAGE_TYPE_TEXT)
+
+    timestamp=time.mktime(time.localtime())
+    timestamp=str(int(timestamp))
+    appendItem(doc,item_xml,'CreateTime',timestamp)
+
+    doc.appendChild(item_xml)
+    res=doc.toprettyxml(indent='')
+    # res=doc.toxml()
+    delete_str='<?xml version="1.0" ?>'
+    if res.startswith(delete_str):
+        res=res[len(delete_str):-1]
+
+    res=res.encode(encoding='utf-8')
+    return res

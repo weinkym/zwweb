@@ -64,7 +64,15 @@ def index(request):
         logging.info('postBody={}'.format(postBody))
         # return HttpResponse("post postBody={}".format(postBody))
         msg=MSG.parseString(postBody)
-        print("msg={}".format(msg))
+        logging.info("msg={}".format(msg))
+        
+        if msg.Content == 'TEST':
+            res=MSG.createResponseMessage(msg.FromUserName,msg.ToUserName,'this message is ok')
+            # logging.info("respose msg={}".format(res))
+            # res=res.encode(encoding='utf-8')
+            logging.info("respose msg={} \ntype={}".format(res,type(res)))
+            return HttpResponse(res)
+
         return HttpResponse("success")
     # logging.info("content={}".format(request.content))
     return HttpResponse("mzw={}===time".format(request.method))
