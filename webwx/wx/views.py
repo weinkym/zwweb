@@ -8,6 +8,7 @@ import webwx.zwutil as zwutil
 import webwx.settings as settings
 from . import wxtoken
 from . import message as MSG
+import webwx.ocr_baidu as OCR
 
 def test(request,index):
     return HttpResponse("test method={},index={}".format(request.method,index))
@@ -71,6 +72,14 @@ def index(request):
             # logging.info("respose msg={}".format(res))
             # res=res.encode(encoding='utf-8')
             logging.info("respose msg={} \ntype={}".format(res,type(res)))
+            return HttpResponse(res)
+        if msg.MsgType == MSG.MESSAGE_TYPE_IMAGE:
+            
+            logging.info('msg.PicUrl={}'.format(msg.PicUrl))
+            ocr_res=OCR.get_image_ocr_url(msg.PicUrl)
+            logging.info('ocr_res={}'.format(ocr_res))
+            ocr_str=''.join('{}\n'.format(str(i)) for i in ocr_res)
+            res=MSG.createResponseMessage(msg.FromUserName,msg.ToUserName,ocr_str)
             return HttpResponse(res)
 
         return HttpResponse("success")
