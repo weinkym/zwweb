@@ -74,7 +74,6 @@ def index(request):
             logging.info("respose msg={} \ntype={}".format(res,type(res)))
             return HttpResponse(res)
         if msg.MsgType == MSG.MESSAGE_TYPE_IMAGE:
-            
             logging.info('msg.PicUrl={}'.format(msg.PicUrl))
             ocr_res=OCR.get_image_ocr_url(msg.PicUrl)
             logging.info('ocr_res={}'.format(ocr_res))
