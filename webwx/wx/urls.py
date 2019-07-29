@@ -7,5 +7,5 @@ from . import update
 urlpatterns = [
     path('', views.index, name='index'),
     path('<int:index>', views.test, name='test'),
-    path('update/validity', update.updateValidity, name='update.updateValidity'),
+    path('update/validity/', update.updateValidity, name='update.updateValidity'),
 ]
