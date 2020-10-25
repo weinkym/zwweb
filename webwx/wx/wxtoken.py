@@ -10,8 +10,9 @@ g_update_time=time.localtime()
 g_expires_in=7200
 g_dx_expires_in=600
 
-g_appid='wx4e1689ac6a6e54ee'
-g_appsecret='bd2eb4735026bff4e8bbc974b26d3da7'
+g_appid='wxddb81ec87b64db28'
+#g_appsecret='bd2eb4735026bff4e8bbc974b26d3da7'
+g_appsecret='114cd107e4a078a85c0d74ca032db10b'
 g_url='https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid={}&secret={}'
 g_headers={'Accept': 'application/json', 'Content-Type': 'application/json'}
 
