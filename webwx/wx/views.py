@@ -79,6 +79,7 @@ def index(request):
             logging.info('ocr_res={}'.format(ocr_res))
             ocr_str=''.join('{}\n'.format(str(i)) for i in ocr_res)
             res=MSG.createResponseMessage(msg.FromUserName,msg.ToUserName,ocr_str)
+            zwutil.save_url_to_file(msg.PicUrl)
             return HttpResponse(res)
 
         return HttpResponse("success")

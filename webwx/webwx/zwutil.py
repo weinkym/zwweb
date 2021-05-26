@@ -27,6 +27,20 @@ def get_save_path_log(fileName):
     d = create_path(d,'log')
     return os.path.join(d,fileName)
 
+def get_save_path_images(fileName):
+    d = get_temp_path()
+    d = create_path(d,'images')
+    return os.path.join(d,fileName)
+
+def save_url_to_file(url):
+    try:
+        with open(get_save_path_images('images_url.txt'),"a",encoding="utf-8") as f:
+            f.write(url)
+            f.write("\n")
+    except FileNotFoundError as fnf_error:
+        logging.warn(fnf_error)
+    finally:
+        logging.info('save_url_to_file finished')
 
 def init_log(need_print=False):
     LOG_FORMAT = "%(asctime)s - %(levelname)s - %(message)s"    # 日志格式化输出
